@@ -194,7 +194,6 @@ const BusStatus: React.FC = () => {
       {isLoading ? (
         <Box
           sx={{
-            height: "75vh",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

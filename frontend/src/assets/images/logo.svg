@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="sphereGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#6a1b9a" />
+            <stop offset="50%" stop-color="#8e24aa" />
+            <stop offset="100%" stop-color="#ab47bc" />
+        </linearGradient>
+
+        <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ce93d8" stop-opacity="1" />
+            <stop offset="50%" stop-color="#f3e5f5" stop-opacity="1" />
+            <stop offset="100%" stop-color="#ce93d8" stop-opacity="1" />
+        </linearGradient>
+
+        <filter id="glow">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+            <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+
+    <g id="dynamic-paths" opacity="0.85">
+        <path d="M50,256 Q256,50 462,256" stroke="url(#pathGradient)" stroke-width="4" fill="none" />
+        <path d="M50,256 Q256,462 462,256" stroke="url(#pathGradient)" stroke-width="4" fill="none" />
+    </g>
+
+    <circle cx="256" cy="256" r="160" fill="url(#sphereGradient)" filter="url(#glow)" />
+
+    <ellipse cx="256" cy="256" rx="200" ry="80" stroke="url(#pathGradient)" stroke-width="4" fill="none" opacity="0.95">
+        <animateTransform attributeName="transform" type="rotate" from="0 256 256" to="360 256 256" dur="6s" repeatCount="indefinite" />
+    </ellipse>
+
+    <g>
+        <circle r="12" fill="#f3e5f5">
+            <animateMotion path="M50,256 Q256,50 462,256" dur="3s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="3s" repeatCount="indefinite" />
+        </circle>
+        <circle r="12" fill="#f3e5f5">
+            <animateMotion path="M50,256 Q256,462 462,256" dur="3s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="1;0.6;1" dur="3s" repeatCount="indefinite" />
+        </circle>
+    </g>
+
+    <g transform="translate(256 256) scale(0.8)">
+        <path d="M-40,-40 L40,-40 M0,-40 L0,40" stroke="#ffffff" stroke-width="20" stroke-linecap="round" fill="none">
+            <animateTransform attributeName="transform" type="translate" values="-10 0; 10 0; -10 0" dur="2s" repeatCount="indefinite" />
+        </path>
+        <path d="M-20,20 C-20,0 20,40 20,20 C20,0 -20,40 -20,20" stroke="#ffffff" stroke-width="16" stroke-linecap="round" fill="none">
+            <animateTransform attributeName="transform" type="translate" values="0 -5; 0 5; 0 -5" dur="2s" repeatCount="indefinite" />
+        </path>
+    </g>
+
+    <circle cx="256" cy="256" r="190" stroke="#f3e5f5" stroke-width="3" fill="none" opacity="0.7">
+        <animate attributeName="r" values="190;200;190" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="256" cy="256" r="180" stroke="#f3e5f5" stroke-width="3" fill="none" opacity="0.6">
+        <animate attributeName="r" values="180;190;180" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2s" repeatCount="indefinite" />
+    </circle>
+
+    <text x="50%" y="90%" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="#ffffff" text-anchor="middle">TrakSphere</text>
+</svg>

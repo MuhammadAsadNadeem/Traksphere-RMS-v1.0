@@ -1,0 +1,87 @@
+/* General map container styles */
+.leaflet-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    touch-action: none;
+    user-select: none;
+    -ms-touch-action: none;
+    -webkit-user-select: none;
+  }
+  
+  /* Tile layer styles */
+  .leaflet-tile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background-color: transparent;
+    transition: opacity 0.25s ease;
+  }
+  
+  .leaflet-tile-container {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Marker icon styles */
+  .leaflet-marker-icon {
+    display: block;
+    width: 25px;
+    height: 41px;
+    background-size: 25px 41px;
+    pointer-events: none;
+    background-image: url('https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png');
+  }
+  
+  .leaflet-popup {
+    position: absolute;
+    max-width: 200px;
+    min-width: 50px;
+    pointer-events: auto;
+    z-index: 300;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    font-size: 14px;
+  }
+  
+  .leaflet-popup .leaflet-popup-content {
+    margin: 0;
+  }
+  
+  /* Zoom controls */
+  .leaflet-control-zoom {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 500;
+  }
+  
+  .leaflet-control-zoom-in,
+  .leaflet-control-zoom-out {
+    background: #fff;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    padding: 5px;
+  }
+  
+  /* Draggable map */
+  .leaflet-dragging {
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+  }
+  
+  /* Map attribution and copyright text */
+  .leaflet-control-attribution {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  

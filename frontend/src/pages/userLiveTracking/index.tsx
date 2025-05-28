@@ -2,18 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Box, Card, CardContent, Typography } from "@mui/material";
-// import ReactSpeedometer from "react-d3-speedometer";
 import theme from "../../theme";
 import ReactSpeedometer from "react-d3-speedometer";
 
 // --- Constants ---
 const DEFAULT_POSITION: L.LatLngExpression = [31.5204, 74.3587]; // Lahore
-const busIcon = new L.Icon({
-  iconUrl: "../../../src/assets/images/bus-stop.svg",
-  iconSize: [60, 60],
-  iconAnchor: [20, 40],
-  popupAnchor: [0, -40],
-});
 
 const LiveTracking: React.FC = () => {
   const mapRef = useRef<HTMLDivElement>(null);
@@ -21,11 +14,11 @@ const LiveTracking: React.FC = () => {
   const busMarker = useRef<L.Marker | null>(null);
   const [speed, setSpeed] = useState(0);
 
-  // ---------- Map helpers ----------
+  // Initialize the map with default location
   const initializeMap = (latLng: L.LatLngExpression) => {
     if (!mapRef.current) return;
 
-    // clean up any previous map
+    // Remove previous map instance if any
     if (mapInstance.current) mapInstance.current.remove();
 
     const map = L.map(mapRef.current).setView(latLng, 13);
@@ -34,8 +27,8 @@ const LiveTracking: React.FC = () => {
       subdomains: ["mt0", "mt1", "mt2", "mt3"],
     }).addTo(map);
 
-    // create the marker once
-    busMarker.current = L.marker(latLng, { icon: busIcon })
+    // Create marker using default Leaflet icon
+    busMarker.current = L.marker(latLng)
       .addTo(map)
       .bindPopup("Live Bus Location")
       .openPopup();
@@ -43,17 +36,19 @@ const LiveTracking: React.FC = () => {
     mapInstance.current = map;
   };
 
+  // Update marker position on the map
   const updateMarker = (latLng: L.LatLngExpression) => {
     busMarker.current?.setLatLng(latLng);
   };
 
+  // Initialize map on component mount
   useEffect(() => {
     initializeMap(DEFAULT_POSITION);
   }, []);
 
-  /* WebSocket: update position whenever data arrives */
+  // Setup WebSocket connection to receive live bus data
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:5000");
+    const socket = new WebSocket("ws://localhost:5000"); // Update your WebSocket URL here
 
     socket.onopen = () => console.log("WebSocket connected");
 
@@ -66,6 +61,7 @@ const LiveTracking: React.FC = () => {
 
         setSpeed(data.speed ?? 0);
         updateMarker([lat, lng]);
+        mapInstance.current?.setView([lat, lng], 13); // Center map on new location
       } catch (err) {
         console.error("Error parsing WebSocket message:", err);
       }

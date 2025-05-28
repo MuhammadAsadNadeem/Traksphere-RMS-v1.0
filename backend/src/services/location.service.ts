@@ -44,6 +44,8 @@ class LocationService {
         const internalBatteryPercent = this.calculateBatteryPercentage(data.internal_battery, 8.4);
         const externalBatteryPercent = this.calculateBatteryPercentage(data.external_battery, 16.4);
 
+        const roundedSpeed = Math.round(data.speed * 100) / 100;
+
         const locationData: SensorData = {
             busNo: data.busNo,
             latitude: data.latitude,
@@ -52,7 +54,7 @@ class LocationService {
             signal_strength: data.signal_strength,
             error: data.error,
             acceleration: data.acceleration,
-            speed: data.speed,
+            speed: roundedSpeed,
             internal_battery_percent: internalBatteryPercent,
             external_battery_percent: externalBatteryPercent
         };

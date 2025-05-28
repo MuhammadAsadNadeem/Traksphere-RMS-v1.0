@@ -12,12 +12,6 @@ import theme from "../../theme";
 
 // --- Constants ---
 const DEFAULT_POSITION: L.LatLngExpression = [31.5497, 74.3436]; // Lahore
-const busIcon = new L.Icon({
-  iconUrl: "../../../src/assets/images/bus-stop.svg",
-  iconSize: [60, 60],
-  iconAnchor: [20, 40],
-  popupAnchor: [0, -40],
-});
 
 // --- Component ---
 const BusStatus: React.FC = () => {
@@ -45,7 +39,7 @@ const BusStatus: React.FC = () => {
       subdomains: ["mt0", "mt1", "mt2", "mt3"],
     }).addTo(map);
 
-    const marker = L.marker(latLng, { icon: busIcon })
+    const marker = L.marker(latLng)
       .addTo(map)
       .bindPopup("Bus Initial Location")
       .openPopup();
@@ -107,93 +101,7 @@ const BusStatus: React.FC = () => {
     };
   }, [isDataReceived]);
 
-  // --- Render Sections ---
-  const renderStatusCard = () => (
-    <Card sx={{ mt: 8, mb: 1, borderRadius: 3, boxShadow: 2 }}>
-      <CardContent>
-        <Typography
-          variant="h5"
-          sx={{ fontWeight: 600, color: theme.palette.primary.main }}
-        >
-          Live Bus Status
-        </Typography>
-        {/* Bus Condition Status */}
-        {acceleration !== null && (
-          <Box sx={{ mt: 2, display: "flex", alignItems: "center", gap: 1 }}>
-            {acceleration === "FLAT" ? (
-              <>
-                <CircleIcon sx={{ color: "green", fontSize: "16px" }} />
-                <Typography variant="body1" sx={{ color: "green" }}>
-                  Bus is in normal condition
-                </Typography>
-              </>
-            ) : (
-              <>
-                <WarningIcon sx={{ color: "orange", fontSize: "16px" }} />
-                <Typography variant="body1" sx={{ color: "orange" }}>
-                  Warning: Bus issue detected
-                </Typography>
-              </>
-            )}
-          </Box>
-        )}
-        <Box
-          sx={{
-            mt: 2,
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 1,
-            justifyContent: "space-between",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              rowGap: 1,
-              columnGap: 1,
-            }}
-          >
-            <Box
-              sx={{
-                flex: { xs: "1 1 100%", sm: "1 1 22%" },
-                minWidth: "120px",
-              }}
-            >
-              <BatteryState value={internalBattery} label="Internal Battery" />
-            </Box>
-            <Box
-              sx={{
-                flex: { xs: "1 1 100%", sm: "1 1 30%" },
-                minWidth: "150px",
-              }}
-            >
-              <BatteryState value={externalBattery} label="External Battery" />
-            </Box>
-            <Box
-              sx={{
-                flex: { xs: "1 1 100%", sm: "1 1 20%" },
-                mt: 6,
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <SignalStrength value={signalStrength} />
-            </Box>
-            <Box
-              sx={{
-                flex: { xs: "1 1 100%", sm: "1 1 20%" },
-                minWidth: "100px",
-              }}
-            >
-              <SpeedGuage speed={speed} />
-            </Box>
-          </Box>
-        </Box>
-      </CardContent>
-    </Card>
-  );
-
+  // --- Render Map Card ---
   const renderMapCard = () => (
     <Card
       sx={{
@@ -205,7 +113,7 @@ const BusStatus: React.FC = () => {
       <CardContent sx={{ height: "100%", p: 2 }}>
         <Typography
           variant="h5"
-          sx={{ fontWeight: 600, color: theme.palette.primary.main }}
+          sx={{ fontWeight: 600, color: theme.palette.primary.main, mb: 2 }}
         >
           Live Bus Location
         </Typography>
@@ -218,14 +126,99 @@ const BusStatus: React.FC = () => {
   );
 
   return (
-    <Box sx={{ p: 1 }}>
-      {renderStatusCard()}
+    <Box
+      sx={{
+        mt: 8,
+        p: { xs: 2, sm: 3 },
+        display: "flex",
+        flexDirection: "column",
+        gap: 3,
+      }}
+    >
+      {/* Status Card */}
+      <Card
+        sx={{
+          borderRadius: 3,
+          boxShadow: 2,
+          p: { xs: 2, sm: 3 },
+        }}
+      >
+        <CardContent>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: 600, color: theme.palette.primary.main, mb: 2 }}
+          >
+            Live Bus Status
+          </Typography>
+
+          {/* Bus Condition Status */}
+          {acceleration !== null && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                mb: 2,
+              }}
+            >
+              {acceleration === "FLAT" ? (
+                <>
+                  <CircleIcon sx={{ color: "green", fontSize: "16px" }} />
+                  <Typography variant="body1" sx={{ color: "green" }}>
+                    Bus is in normal condition
+                  </Typography>
+                </>
+              ) : (
+                <>
+                  <WarningIcon sx={{ color: "orange", fontSize: "16px" }} />
+                  <Typography variant="body1" sx={{ color: "orange" }}>
+                    Warning: Bus issue detected
+                  </Typography>
+                </>
+              )}
+            </Box>
+          )}
+
+          {/* Battery, Signal, Speed */}
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 2,
+              justifyContent: "space-between",
+            }}
+          >
+            <Box sx={{ flex: "1 1 220px" }}>
+              <BatteryState value={internalBattery} label="Internal Battery" />
+            </Box>
+            <Box sx={{ flex: "1 1 220px" }}>
+              <BatteryState value={externalBattery} label="External Battery" />
+            </Box>
+            <Box
+              sx={{
+                flex: "1 1 160px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <SignalStrength value={signalStrength} />
+            </Box>
+            <Box sx={{ flex: "1 1 160px" }}>
+              <SpeedGuage speed={speed} />
+            </Box>
+          </Box>
+        </CardContent>
+      </Card>
+
+      {/* Loader or Map Card */}
       {isLoading ? (
         <Box
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            height: { xs: "200px", sm: "250px" },
           }}
         >
           <SpanLoader />

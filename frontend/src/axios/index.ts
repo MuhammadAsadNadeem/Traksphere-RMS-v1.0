@@ -1,4 +1,3 @@
-// src/utils/axios.ts
 import axios from 'axios';
 import { routes } from '../routes';
 

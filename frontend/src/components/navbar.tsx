@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isLogin = useAppSelector((state) => !!state.userSlice.token); // Ensure boolean
+  const isLogin = useAppSelector((state) => !!state.userSlice.token);
   const theme = useTheme();
 
   const links = [
@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
   ];
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
     dispatch(logout());
     navigate(routes.login);
     handleMenuClose();
@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
                 color: theme.palette.primary.contrastText,
                 cursor: "pointer",
               }}
-              onClick={() => navigate(routes.landingPage)} // Navigate to home
+              onClick={() => navigate(routes.landingPage)}
             >
               TRAKSPHERE
             </Typography>

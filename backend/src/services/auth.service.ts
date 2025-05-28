@@ -62,15 +62,15 @@ export class authService {
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            throw new HttpError("Invalid password", StatusCodes.UNAUTHORIZED);
+            throw new HttpError("Password incorrect", StatusCodes.UNAUTHORIZED);
         }
 
         const token = jwt.sign({ id: user.id, email: user.email }, config.jwt.secret, { expiresIn: config.jwt.exp });
 
         const { password: _, ...userData } = user;
         return { token };
-        // return { token, user: userData };
     }
+
 
 
     async getAllStopNames(): Promise<BusStop[]> {

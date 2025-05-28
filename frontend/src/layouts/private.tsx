@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Box, CssBaseline } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import Navbar from "../components/NavBar";
+import Navbar from "../components/Navbar";
 import SideBar from "../components/sideBar";
 
 const Private = () => {

@@ -29,6 +29,7 @@ const Login = () => {
   // Clear localStorage and Redux state on mount
   useEffect(() => {
     localStorage.removeItem("token");
+
     dispatch(logout()); // Clear token, user, profile, routes
   }, [dispatch]);
 

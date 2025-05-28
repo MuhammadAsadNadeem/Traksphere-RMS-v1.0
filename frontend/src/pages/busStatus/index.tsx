@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Box, Card, CardContent, Typography } from "@mui/material";
+import CircleIcon from "@mui/icons-material/Circle";
+import WarningIcon from "@mui/icons-material/Warning";
 import BatteryState from "../../components/BatteryState";
 import SignalStrength from "../../components/SignalStength";
 import SpeedGuage from "../../components/SpeedGuage";
@@ -31,6 +33,7 @@ const BusStatus: React.FC = () => {
   const [externalBattery, setExternalBattery] = useState(100);
   const [signalStrength, setSignalStrength] = useState(20);
   const [speed, setSpeed] = useState(0);
+  const [acceleration, setAcceleration] = useState<string | null>(null); // State for acceleration
 
   // --- Initialize Map with default location ---
   const initializeMap = (latLng: L.LatLngExpression) => {
@@ -84,6 +87,7 @@ const BusStatus: React.FC = () => {
         setExternalBattery(data.external_battery_percent);
         setSignalStrength(data.signal_strength);
         setSpeed(data.speed);
+        setAcceleration(data.acceleration); // Set the acceleration from WebSocket data
 
         setIsDataReceived(true);
         setIsLoading(false);
@@ -101,7 +105,7 @@ const BusStatus: React.FC = () => {
       socket.close();
       clearTimeout(timeout);
     };
-  });
+  }, [isDataReceived]);
 
   // --- Render Sections ---
   const renderStatusCard = () => (
@@ -113,6 +117,26 @@ const BusStatus: React.FC = () => {
         >
           Live Bus Status
         </Typography>
+        {/* Bus Condition Status */}
+        {acceleration !== null && (
+          <Box sx={{ mt: 2, display: "flex", alignItems: "center", gap: 1 }}>
+            {acceleration === "FLAT" ? (
+              <>
+                <CircleIcon sx={{ color: "green", fontSize: "16px" }} />
+                <Typography variant="body1" sx={{ color: "green" }}>
+                  Bus is in normal condition
+                </Typography>
+              </>
+            ) : (
+              <>
+                <WarningIcon sx={{ color: "orange", fontSize: "16px" }} />
+                <Typography variant="body1" sx={{ color: "orange" }}>
+                  Warning: Bus issue detected
+                </Typography>
+              </>
+            )}
+          </Box>
+        )}
         <Box
           sx={{
             mt: 2,
@@ -123,7 +147,12 @@ const BusStatus: React.FC = () => {
           }}
         >
           <Box
-            sx={{ display: "flex", flexWrap: "wrap", rowGap: 1, columnGap: 1 }}
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              rowGap: 1,
+              columnGap: 1,
+            }}
           >
             <Box
               sx={{

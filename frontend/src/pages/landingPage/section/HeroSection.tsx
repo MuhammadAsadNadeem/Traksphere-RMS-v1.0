@@ -1,242 +1,275 @@
-import React from "react";
+import type React from "react";
 import {
   Box,
   Container,
   Typography,
   Button,
   useTheme,
-  Stack,
   alpha,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import {
+  LocationOn,
+  DirectionsBus,
+  NotificationsActive,
+  Schedule,
+  KeyboardArrowDown,
+} from "@mui/icons-material";
 import { routes } from "../../../routes";
 
 const HeroSection: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
+  const handleScrollDown = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+    }
+  };
+
   return (
-    <Box
-      component="section"
-      sx={{
-        position: "relative",
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        overflow: "hidden",
-        background: `
-          radial-gradient(circle at 10% 20%, ${alpha(
-            theme.palette.primary.light,
-            0.15
-          )} 0%, transparent 40%),
-          radial-gradient(circle at 90% 80%, ${alpha(
-            theme.palette.secondary.light,
-            0.15
-          )} 0%, transparent 40%)
-        `,
-      }}
-    >
-      {/* Animated floating elements */}
+    <section id="home">
       <Box
+        component="section"
         sx={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
+          position: "relative",
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
           overflow: "hidden",
-          zIndex: -1,
+          backgroundColor: theme.palette.background.default,
         }}
       >
-        {[1, 2, 3].map((i) => (
-          <Box
-            key={i}
-            component={motion.div}
-            initial={{ y: 0, x: i % 2 === 0 ? -100 : 100 }}
-            animate={{
-              y: [0, 100, 0],
-              x: [i % 2 === 0 ? -100 : 100, i % 2 === 0 ? 100 : -100, 0],
-              rotate: 360,
-            }}
-            transition={{
-              duration: 15 + i * 3,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            sx={{
-              position: "absolute",
-              top: `${i * 25}%`,
-              left: `${i * 20}%`,
-              width: 400,
-              height: 400,
-              background: `linear-gradient(45deg, ${alpha(
-                theme.palette.primary.main,
-                0.1
-              )} 0%, ${alpha(theme.palette.secondary.main, 0.1)} 100%)`,
-              borderRadius: "30% 70% 70% 30% / 30% 30% 70% 70%",
-              filter: "blur(40px)",
-              opacity: 0.4,
-            }}
-          />
-        ))}
-      </Box>
-
-      <Container maxWidth="lg">
-        <Stack
-          alignItems="center"
-          textAlign="center"
-          spacing={{ xs: 4, md: 6 }}
-          sx={{
-            position: "relative",
-            zIndex: 1,
-            py: { xs: 8, md: 12 },
-          }}
+        <Container
+          maxWidth="lg"
+          sx={{ position: "relative", pt: 10, zIndex: 2 }}
         >
           <Box
-            component={motion.div}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: {
-                  xs: "2.75rem",
-                  sm: "3.5rem",
-                  md: "4.5rem",
-                  lg: "5rem",
-                },
-                fontWeight: 900,
-                lineHeight: 1.1,
-                letterSpacing: "-0.03em",
-                maxWidth: "1200px",
-                mx: "auto",
-                mb: 3,
-                background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
-                backgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              Revolutionizing Campus Transportation Through Smart Technology
-            </Typography>
-
-            <Typography
-              variant="h2"
-              sx={{
-                fontSize: { xs: "1.25rem", md: "1.5rem" },
-                color: "text.secondary",
-                fontWeight: 400,
-                lineHeight: 1.6,
-                maxWidth: "800px",
-                mx: "auto",
-                mb: 4,
-              }}
-            >
-              Optimize campus mobility with real-time tracking, predictive
-              analytics, and AI-powered route optimization for students and
-              faculty
-            </Typography>
-
-            <Button
-              component={motion.button}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              variant="contained"
-              size="large"
-              onClick={() => navigate(routes.signup)}
-              endIcon={<ArrowForwardIcon />}
-              sx={{
-                px: 6,
-                py: 2,
-                borderRadius: 3,
-                fontSize: "1.1rem",
-                fontWeight: 700,
-                textTransform: "none",
-                background: `linear-gradient(150deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
-                boxShadow: `0 12px 24px ${alpha(
-                  theme.palette.primary.main,
-                  0.2
-                )}`,
-                "&:hover": {
-                  boxShadow: `0 16px 32px ${alpha(
-                    theme.palette.primary.main,
-                    0.3
-                  )}`,
-                },
-              }}
-            >
-              Start Free Trial
-            </Button>
-          </Box>
-
-          {/* Stats Grid */}
-          <Box
-            component={motion.div}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
             sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", sm: "repeat(3, 1fr)" },
-              gap: 4,
-              width: "100%",
-              maxWidth: "1000px",
+              textAlign: "center",
+              color: theme.palette.text.primary,
+              maxWidth: "800px",
               mx: "auto",
-              mt: { xs: 4, md: 8 },
+              px: { xs: 2, sm: 4 },
             }}
           >
-            {[
-              { value: "50+", label: "Optimized Routes" },
-              { value: "1000+", label: "Daily Commuters" },
-              { value: "99.9%", label: "Service Reliability" },
-            ].map((stat, index) => (
-              <Box
-                key={index}
-                component={motion.div}
-                whileHover={{ y: -5 }}
+            {/* Animated Bus Icon */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Box sx={{ mb: 3, display: "flex", justifyContent: "center" }}>
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1], opacity: [1, 0.8, 1] }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      p: 2,
+                      borderRadius: "50%",
+                      backgroundColor: alpha(theme.palette.primary.light, 0.2),
+                      backdropFilter: "blur(10px)",
+                      border: `2px solid ${alpha(
+                        theme.palette.primary.light,
+                        0.3
+                      )}`,
+                    }}
+                  >
+                    <DirectionsBus
+                      sx={{ fontSize: 48, color: theme.palette.primary.main }}
+                    />
+                  </Box>
+                </motion.div>
+              </Box>
+            </motion.div>
+
+            {/* Headline */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <Typography
+                variant="h1"
                 sx={{
-                  textAlign: "center",
-                  p: 3,
-                  background: alpha(theme.palette.background.paper, 0.8),
-                  borderRadius: 4,
-                  backdropFilter: "blur(12px)",
-                  border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-                  boxShadow: `0 8px 32px ${alpha(
-                    theme.palette.primary.main,
-                    0.05
-                  )}`,
+                  fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem" },
+                  fontWeight: 800,
+                  lineHeight: 1.1,
+                  mb: 3,
+                  letterSpacing: "-1px",
+                  color: theme.palette.primary.main,
                 }}
               >
-                <Typography
-                  variant="h3"
+                Track Your University Bus in{" "}
+                <Box
+                  component="span"
                   sx={{
-                    fontSize: { xs: "2.25rem", md: "2.75rem" },
-                    fontWeight: 800,
-                    mb: 1,
-                    background: `linear-gradient(135deg, ${theme.palette.primary.main} 30%, ${theme.palette.secondary.main} 100%)`,
-                    backgroundClip: "text",
+                    background: `linear-gradient(45deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`,
+                    WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}
                 >
-                  {stat.value}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: "text.secondary",
-                    fontSize: "1.1rem",
-                    fontWeight: 500,
-                  }}
-                >
-                  {stat.label}
-                </Typography>
+                  Real-Time
+                </Box>
+              </Typography>
+            </motion.div>
+
+            {/* Subheadline */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <Typography
+                variant="h5"
+                sx={{
+                  fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.5rem" },
+                  fontWeight: 400,
+                  lineHeight: 1.6,
+                  mb: 5,
+                  maxWidth: "600px",
+                  mx: "auto",
+                }}
+              >
+                Stay safe, stay updated with live GPS tracking and route info
+              </Typography>
+            </motion.div>
+
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <Button
+                component={motion.button}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                variant="contained"
+                size="large"
+                onClick={() => navigate(routes.signup)}
+                sx={{
+                  fontSize: { xs: "1.1rem", sm: "1.2rem" },
+                  fontWeight: 700,
+                  textTransform: "none",
+                  px: { xs: 4, sm: 6 },
+                  py: { xs: 1.5, sm: 2 },
+                  borderRadius: 3,
+                  background: `linear-gradient(45deg, ${theme.palette.primary.main} 30%, ${theme.palette.secondary.main} 90%)`,
+                  color: "white",
+                  boxShadow: "0 8px 30px rgba(0, 34, 255, 0.2)",
+                  "&:hover": {
+                    background: `linear-gradient(45deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.dark})`,
+                    boxShadow: "0 12px 40px rgba(0, 34, 255, 0.4)",
+                  },
+                }}
+              >
+                Get Started
+              </Button>
+            </motion.div>
+
+            {/* Features */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                  gap: 2,
+                  mt: 6,
+                }}
+              >
+                {[
+                  {
+                    text: "Live GPS Tracking",
+                    icon: <LocationOn fontSize="small" />,
+                  },
+                  {
+                    text: "Route Updates",
+                    icon: <Schedule fontSize="small" />,
+                  },
+                  {
+                    text: "Safety Alerts",
+                    icon: <NotificationsActive fontSize="small" />,
+                  },
+                ].map((feature) => (
+                  <motion.div
+                    key={feature.text}
+                    whileHover={{ y: -2, scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Box
+                      sx={{
+                        px: 3,
+                        py: 1.5,
+                        borderRadius: 25,
+                        backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                        border: `1px solid ${alpha(
+                          theme.palette.primary.main,
+                          0.3
+                        )}`,
+                        fontSize: "0.9rem",
+                        fontWeight: 500,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 1,
+                        "&:hover": {
+                          backgroundColor: alpha(
+                            theme.palette.primary.main,
+                            0.2
+                          ),
+                        },
+                      }}
+                    >
+                      {feature.icon}
+                      {feature.text}
+                    </Box>
+                  </motion.div>
+                ))}
               </Box>
-            ))}
+            </motion.div>
           </Box>
-        </Stack>
-      </Container>
-    </Box>
+        </Container>
+
+        {/* Scroll Down Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          style={{
+            position: "absolute",
+            bottom: 32,
+            left: "50%",
+            transform: "translateX(-50%)",
+            color: theme.palette.text.secondary,
+            textAlign: "center",
+            cursor: "pointer",
+            zIndex: 2,
+          }}
+          onClick={handleScrollDown}
+        >
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <Typography variant="body2" sx={{ mb: 1 }}>
+              Scroll Down
+            </Typography>
+            <KeyboardArrowDown sx={{ fontSize: 32 }} />
+          </motion.div>
+        </motion.div>
+      </Box>
+    </section>
   );
 };
 

@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import { red, green, yellow, blue, deepPurple, purple } from "@mui/material/colors";
+import { red, green, yellow, blue, deepPurple, purple, } from "@mui/material/colors";
 
 const primaryShades = Object.fromEntries(
   Object.entries(deepPurple).filter(([key]) => !isNaN(Number(key)))

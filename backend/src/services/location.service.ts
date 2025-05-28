@@ -5,8 +5,6 @@ interface SensorData {
     busNo: string;
     latitude: number;
     longitude: number;
-    internal_battery: number;
-    external_battery: number;
     condition: string;
     signal_strength: number;
     error: string;
@@ -19,7 +17,7 @@ interface SensorData {
 class LocationService {
     private latestLocation: SensorData | null = null;
 
-    private isValidSensorData(data: any): data is SensorData {
+    private isValidSensorData(data: any): boolean {
         return (
             typeof data.busNo === 'string' &&
             typeof data.latitude === 'number' &&
@@ -50,8 +48,6 @@ class LocationService {
             busNo: data.busNo,
             latitude: data.latitude,
             longitude: data.longitude,
-            internal_battery: data.internal_battery,
-            external_battery: data.external_battery,
             condition: data.condition,
             signal_strength: data.signal_strength,
             error: data.error,
@@ -65,8 +61,32 @@ class LocationService {
         return locationData;
     }
 
-    getLatestLocation(): SensorData | null {
-        return this.latestLocation;
+    getLatestLocation(): Partial<SensorData> | null {
+        if (!this.latestLocation) return null;
+
+        const {
+            busNo,
+            latitude,
+            longitude,
+            signal_strength,
+            error,
+            acceleration,
+            speed,
+            internal_battery_percent,
+            external_battery_percent
+        } = this.latestLocation;
+
+        return {
+            busNo,
+            latitude,
+            longitude,
+            signal_strength,
+            error,
+            acceleration,
+            speed,
+            internal_battery_percent,
+            external_battery_percent
+        };
     }
 }
 

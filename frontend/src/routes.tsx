@@ -1,6 +1,3 @@
-import LoginPage from "./pages/logIn/index";
-import ForgotPassword from "./pages/forgotPassword/index";
-import SignUp from "./pages/signUp/signupPart1";
 import Dashboard from "./pages/dashboard";
 import UserManagement from "./pages/userManagement";
 import DriverManagement from "./pages/driverMangement";
@@ -9,11 +6,14 @@ import ChangePassword from "./pages/changePassword";
 import RouteManagement from "./pages/routeManagement";
 import RouteDetails from "./pages/routeDetails";
 import UserProfile from "./pages/userProfile";
-import Profile from "./pages/signUp/signupPart2";
 import LiveTracking from "./pages/userLiveTracking";
 import LandingPage from "./pages/landingPage";
 import EmailMessages from "./pages/emailMessages";
 import BusStatus from "./pages/busStatus";
+import Profile from "./pages/signup/signupPart2";
+import LoginPage from "./pages/login";
+import ForgotPassword from "./pages/forgotPassword";
+import SignUp from "./pages/signup/signupPart1";
 
 export const routes = {
   login: "/login",

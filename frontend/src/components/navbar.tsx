@@ -44,9 +44,9 @@ const Navbar: React.FC = () => {
   ];
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove only token
-    dispatch(logout()); // Update Redux state
-    navigate(routes.login); // Redirect
+    localStorage.clear();
+    dispatch(logout());
+    navigate(routes.login);
     handleMenuClose();
   };
 
